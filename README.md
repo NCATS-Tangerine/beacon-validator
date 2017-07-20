@@ -2,11 +2,13 @@
 
 You can get the `beacon-tester.jar` file with `wget https://github.com/lhannest/beacon-tester/raw/master/beacon-tester.jar`.
 
-Usage: java -jar beacon-tester.jar beacon-url [keyword...]
+Usage:
+
+`java -jar beacon-tester.jar beacon-url [keyword...]`
 
 By default the keyword is "e" (since it is the most common character in the English language). You can change this by setting the `keyword` parameter. For example:
 
-java -jar beacon-tester.jar https://biolink-kb.ncats.io diabetes
+`java -jar beacon-tester.jar https://biolink-kb.ncats.io diabetes`
 
 ## Issues
 
