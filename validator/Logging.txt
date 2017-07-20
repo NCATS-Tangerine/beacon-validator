@@ -1,0 +1,45 @@
+Jul 05, 2017 10:18:31 AM bio.knowledge.validator.Application main
+INFO: Testing beacon at: http://127.0.0.1:5000
+Jul 05, 2017 10:18:31 AM bio.knowledge.validator.Application main
+INFO: Using keywords: diabetes
+Jul 05, 2017 10:18:31 AM bio.knowledge.validator.Validator validate
+INFO: Testing basic workflow from searching a concept to getting a statement to getting evidence.
+Jul 05, 2017 10:18:32 AM bio.knowledge.validator.Validator logError
+SEVERE: http://127.0.0.1:5000/concepts/DOID%3A9352
+com.google.gson.JsonSyntaxException: java.lang.IllegalStateException: Expected BEGIN_ARRAY but was BEGIN_OBJECT at line 1 column 2 path $
+	at com.google.gson.Gson.fromJson(Gson.java:891)
+	at com.google.gson.Gson.fromJson(Gson.java:844)
+	at com.google.gson.Gson.fromJson(Gson.java:793)
+	at bio.knowledge.client.JSON.deserialize(JSON.java:103)
+	at bio.knowledge.client.ApiClient.deserialize(ApiClient.java:840)
+	at bio.knowledge.client.ApiClient.handleResponse(ApiClient.java:1036)
+	at bio.knowledge.client.ApiClient.execute(ApiClient.java:970)
+	at bio.knowledge.client.api.ConceptsApi.getConceptDetailsWithHttpInfo(ConceptsApi.java:140)
+	at bio.knowledge.client.api.ConceptsApi.getConceptDetails(ConceptsApi.java:126)
+	at bio.knowledge.validator.Validator.validateBasicWorkflow(Validator.java:119)
+	at bio.knowledge.validator.Validator.validate(Validator.java:72)
+	at bio.knowledge.validator.Application.run(Application.java:82)
+	at bio.knowledge.validator.Application.main(Application.java:71)
+Caused by: java.lang.IllegalStateException: Expected BEGIN_ARRAY but was BEGIN_OBJECT at line 1 column 2 path $
+	at com.google.gson.stream.JsonReader.beginArray(JsonReader.java:351)
+	at com.google.gson.internal.bind.CollectionTypeAdapterFactory$Adapter.read(CollectionTypeAdapterFactory.java:80)
+	at com.google.gson.internal.bind.CollectionTypeAdapterFactory$Adapter.read(CollectionTypeAdapterFactory.java:61)
+	at com.google.gson.Gson.fromJson(Gson.java:879)
+	... 12 more
+
+Jul 05, 2017 10:18:32 AM bio.knowledge.validator.Validator logError
+SEVERE: http://127.0.0.1:5000/statements?c=DOID%3A9352&pageNumber=1&pageSize=1
+bio.knowledge.client.ApiException: INTERNAL SERVER ERROR
+	at bio.knowledge.client.ApiClient.handleResponse(ApiClient.java:1047)
+	at bio.knowledge.client.ApiClient.execute(ApiClient.java:970)
+	at bio.knowledge.client.api.StatementsApi.getStatementsWithHttpInfo(StatementsApi.java:156)
+	at bio.knowledge.client.api.StatementsApi.getStatements(StatementsApi.java:138)
+	at bio.knowledge.validator.Validator.validateBasicWorkflow(Validator.java:128)
+	at bio.knowledge.validator.Validator.validate(Validator.java:72)
+	at bio.knowledge.validator.Application.run(Application.java:82)
+	at bio.knowledge.validator.Application.main(Application.java:71)
+
+Jul 05, 2017 10:18:32 AM bio.knowledge.validator.Application run
+INFO: Test terminated prematurely
+Jul 05, 2017 10:18:32 AM bio.knowledge.validator.Application$1 run
+INFO: Test finished.
