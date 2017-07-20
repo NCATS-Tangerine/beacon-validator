@@ -1,7 +1,5 @@
 # beacon-tester
 
-## Use
-
 You can get the `beacon-tester.jar` file with `wget https://github.com/lhannest/beacon-tester/raw/master/beacon-tester.jar`.
 
 Usage: java -jar beacon-tester.jar beacon-url [keyword...]
