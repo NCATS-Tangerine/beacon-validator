@@ -1,4 +1,6 @@
-# beacon-tester
+# beacon-validator
+
+Simple application for testing validity of Knowledge Beacons
 
 You can get the `beacon-tester.jar` file with `wget https://github.com/lhannest/beacon-tester/raw/master/beacon-tester.jar`.
 
@@ -22,3 +24,4 @@ This application tests the syntax of respones, pagination, and semantic filterin
 ## Setting up the tests
 
 Assumptions need to be made about the sort of data in the database. Since 'e' is the most common character in the English language, this single character will be used as a keyword in most of the queries. If this is innapropriate for your beacon for whatever reason, you can change the keyword(s) with the applications parameter.
+
