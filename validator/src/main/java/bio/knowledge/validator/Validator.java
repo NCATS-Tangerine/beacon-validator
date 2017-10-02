@@ -223,7 +223,7 @@ public class Validator {
 			logger.info("\tfound '"+statements.size()+"' matching statements in partner concept?");
 			for (Statement statement : statements) {
 				String id = c.contains(statement.getObject().getId()) ? statement.getSubject().getId() : statement.getObject().getId();
-				logger.info("Validating concept details for ID '"+id+"'...");
+				//logger.info("Validating concept details for ID '"+id+"'...");
 				List<ConceptDetails> concepts = (List<ConceptDetails>) (List) conceptsApi.getConceptDetails(id);
 				if (concepts.isEmpty()) {
 					logError("No concept details found for concept ID " + id);
