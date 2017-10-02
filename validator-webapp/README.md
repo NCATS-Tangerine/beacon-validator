@@ -20,7 +20,7 @@ docker build -t validator .
 docker run --rm -p 5000:5000 validator
 ```
 
-The `--rm` flag for `docker run` ensures that the container will be deleted after closing, so that containers don't add up every time you run the image. The `-p` flag bridges ports from within the container to the host network. The application will run on port 5000 within the container, and we map it to the host's port 5000.
+Note that depending on how your Docker installation is set up, you may need to use *'sudo'* to run these docker commands.  The `--rm` flag for `docker run` ensures that the container will be deleted after closing, so that containers don't add up every time you run the image. The `-p` flag bridges ports from within the container to the host network. The application will run on port 5000 within the container, and we map it to the host's port 5000.
 
 With the application running, open your browser to http://localhost:5000 to see the UI in action.
 
