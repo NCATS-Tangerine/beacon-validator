@@ -2,15 +2,21 @@
 
 Simple application for testing validity of Knowledge Beacons
 
-You can get the `beacon-tester.jar` file with `wget https://github.com/lhannest/beacon-tester/raw/master/beacon-tester.jar`.
+# Build
+
+This project may be built with Gradle by the following
+
+	gradle clean build
+
+This creates an executable Java JAR file under the validator/build/libs subfolder of the project.
 
 Usage:
 
-`java -jar beacon-tester.jar beacon-url [keyword...]`
+`java -jar validator.jar beacon-url [keyword...]`
 
 By default the keyword is "e" (since it is the most common character in the English language). You can change this by setting the `keyword` parameter. For example:
 
-`java -jar beacon-tester.jar https://biolink-kb.ncats.io diabetes`
+`java -jar validatorjar https://biolink-kb.ncats.io diabetes`
 
 ## Issues
 

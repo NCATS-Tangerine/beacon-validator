@@ -10,11 +10,11 @@ import bio.knowledge.validator.Validator.TestTerminationException;
 import bio.knowledge.validator.utilities.MyLogger;
 
 public class Application {
-	public final static String stringdb = "http://52.15.182.253:8090/api";
-	public final static String SemMedDb = "http://rka.ncats.io";
-	public final static String Wikidata = "http://garbanzo.sulab.org";
-	public final static String renci = "http://stars.renci.org:5000";
-	public final static String biolink = "http://127.0.0.1:5000";
+	//public final static String stringdb = "http://52.15.182.253:8090/api";
+	//public final static String SemMedDb = "http://rka.ncats.io";
+	//public final static String Wikidata = "http://garbanzo.sulab.org";
+	//public final static String renci = "http://stars.renci.org:5000";
+	//public final static String biolink = "http://127.0.0.1:5000";
 	
 	Logger logger = Logger.getGlobal();
 	
@@ -49,7 +49,7 @@ public class Application {
 				beaconUrl = url.toString();
 				beaconUrl = beaconUrl.endsWith("/") ? beaconUrl.substring(0, beaconUrl.length() - 1) : beaconUrl;
 			} catch (MalformedURLException e) {
-				System.out.println("The string \"" + args[0] + "\" is not a valid URL. Ensure that it begins with \"http://\"");
+				System.out.println("The string \"" + args[0] + "\" is not a valid beacon URL.");
 				return;
 			}
 		}
@@ -89,8 +89,9 @@ public class Application {
 	private void run() {
 		try {
 			validator.validate();
+			logger.info("Test suite completed normally?");
 		} catch (TestTerminationException e) {
-			logger.info("Test terminated prematurely");
+			logger.info("Test suite terminated prematurely!");
 		}
 	}
 }
