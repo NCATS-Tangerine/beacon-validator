@@ -26,9 +26,6 @@ public class Validator {
 
 	private String keywords = "e";
 	private final String semgroups = null;
-	private final Integer pageNumber = 1;
-	private final Integer pageSize = 50;
-	
 	// These fields are setup in validateBasicWorkflow()
 	private String conceptId;
 	private String statementId;
@@ -38,7 +35,6 @@ public class Validator {
 	private final StatementsApi statementsApi;
 	private final EvidenceApi evidenceApi;
 	private final ExactmatchesApi exactmatchesApi;
-	private final SummaryApi summaryApi;
 	private final ApiClient apiClient;
 	
 	private void logError(Throwable thrown) {
@@ -49,10 +45,15 @@ public class Validator {
 		logger.log(Level.SEVERE, apiClient.getLastQuery(), new RuntimeException(message));
 	}
 	
+	private void logWarning(String message) {
+		logger.log(Level.WARNING, message);
+	}
+	
 	/**
 	 * Used as a control mechanism to exit the test.
 	 */
-	public class TestTerminationException extends RuntimeException { }
+	public class TestTerminationException extends RuntimeException {
+		private static final long serialVersionUID = 904682996097862867L; }
 	
 	private TestTerminationException terminate() {
 		return new TestTerminationException();
@@ -63,34 +64,46 @@ public class Validator {
 		statementsApi = new StatementsApi(apiClient);
 		evidenceApi = new EvidenceApi(apiClient);
 		exactmatchesApi = new ExactmatchesApi(apiClient);
-		summaryApi = new SummaryApi(apiClient);
+		new SummaryApi(apiClient);
 		this.apiClient = apiClient;
 	}
 
 	public void validate() {
-		logger.info("Testing basic workflow from searching a concept to getting a statement to getting evidence.");
+		logger.info("Test 1 of 6. Testing basic workflow from searching a concept to getting a statement to getting evidence.");
 		validateBasicWorkflow();
 		
 		try {
-			logger.info("Testing concept paging");
-			validatePaging((pageNumber, pageSize) -> { return (List) conceptsApi.getConcepts(keywords, null, pageNumber, pageSize); });
-			logger.info("Testing statement paging");
-			validatePaging((pageNumber, pageSize) -> { return (List) statementsApi.getStatements(c, pageNumber, pageSize, null, null); });
-			logger.info("Testing evidence paging");
-			validatePaging((pageNumber, pageSize) -> { return (List) evidenceApi.getEvidence(statementId, null, pageNumber, pageSize); });
+			logger.info("Test 2 of 6. Testing concept paging");
+			if( validatePaging((pageNumber, pageSize) -> { return (List) conceptsApi.getConcepts(keywords, null, pageNumber, pageSize); }) ) {
+				logger.info("Paging ok!");
+			} else {
+				logger.warning("Invalid paging detected!");
+			}
+			logger.info("Test 3 of 6. Testing statement paging");
+			if( validatePaging((pageNumber, pageSize) -> { return (List) statementsApi.getStatements(c, pageNumber, pageSize, null, null); }) ) {
+				logger.info("Paging ok!");
+			} else {
+				logger.warning("Invalid paging detected!");
+			}
+			logger.info("Test 4 of 6. Testing evidence paging");
+			if( validatePaging((pageNumber, pageSize) -> { return (List) evidenceApi.getEvidence(statementId, null, pageNumber, pageSize); }) ) {
+				logger.info("Paging ok!");
+			} else {
+				logger.warning("Invalid paging detected!");
+			}
 		} catch (ApiException e) {
 			logError(e);
 			throw terminate();
 		}
 		
 		try {
-			logger.info("Testing semantic filter on concepts");
+			logger.info("Test 5 of 6. Testing semantic filter on concepts");
 			validateConceptSemanticFilter();
 		} catch (ApiException e) {
 			logError(e);
 		}
 		try {
-			logger.info("Testing semantic filter on statements");
+			logger.info("Test 6 of 6. Testing semantic filter on statements");
 			validateStatementSemanticFilter();
 		} catch (ApiException e) {
 			logError(e);
@@ -164,6 +177,8 @@ public class Validator {
 		List<IdentifiedEntity> half1 = f.apply(1, size);
 		List<IdentifiedEntity> half2 = f.apply(2, size);
 		
+		if( !( half1.size() == size || half2.size() == size )) return false;
+		
 		for (int i = 0; i < size; i++) {
 			if (!entities.get(i).getId().equals(half1.get(i).getId())) {
 				return false;
@@ -176,14 +191,16 @@ public class Validator {
 			}
 		}
 		
-		return half1.size() + half2.size() == size * 2;
+		return true;
 	}
 	
 	private void validateConceptSemanticFilter() throws ApiException {
 		int pageNumber = 1;
 		int pageSize = 50;
+		logger.info("Using keywords '"+keywords+"' as a query...");
 		for (SemanticGroup semanticGroup : SemanticGroup.values()) {
 			List<Concept> concepts = (List<Concept>) (List) conceptsApi.getConcepts(keywords, semanticGroup.name(), pageNumber, pageSize);
+			logger.info("For Semantic Group '"+semanticGroup.name()+"' found '"+concepts.size()+"' statements?");
 			for (Concept concept : concepts) {
 				boolean isValid = concept.getSemanticGroup().toLowerCase().equals(semanticGroup.name().toLowerCase());
 				if (! isValid) {
@@ -199,10 +216,14 @@ public class Validator {
 		int pageNumber = 1;
 		int pageSize = 50;
 		List<String> c = Arrays.asList(new String[]{conceptId});
+		logger.info("Using conceptId '"+conceptId+"' as a query...");
 		for (SemanticGroup semanticGroup : SemanticGroup.values()) {
+			logger.info("For Semantic Group '"+semanticGroup.name()+"' ...");
 			List<Statement> statements = (List<Statement>) (List) statementsApi.getStatements(c, pageNumber, pageSize, null, semanticGroup.name());
+			logger.info("\tfound '"+statements.size()+"' matching statements in partner concept?");
 			for (Statement statement : statements) {
 				String id = c.contains(statement.getObject().getId()) ? statement.getSubject().getId() : statement.getObject().getId();
+				logger.info("Validating concept details for ID '"+id+"'...");
 				List<ConceptDetails> concepts = (List<ConceptDetails>) (List) conceptsApi.getConceptDetails(id);
 				if (concepts.isEmpty()) {
 					logError("No concept details found for concept ID " + id);
@@ -211,11 +232,9 @@ public class Validator {
 					ConceptDetails concept = concepts.get(0);
 					boolean isValid = concept.getSemanticGroup().toLowerCase().equals(semanticGroup.name().toLowerCase());
 					if (! isValid) {
-						logError(
-								"Searched for statements containing concept with ID " + conceptId + " with semantic filter applied for " +
-										semanticGroup.name() + "." +
-								" Received statement with ID " + statement.getId() + " which has a concept with ID " + concept.getId() +
-								" that is of semantic type " + concept.getSemanticGroup());
+						logWarning(
+								"Searched for statements containing concept with ID '" + conceptId + "' with semantic filter applied for "+ semanticGroup.name() + "." +
+								"\n\tReceived statement with ID '" + statement.getId() + "' which has a concept with ID '" + concept.getId() +"' that is of semantic type '" + concept.getSemanticGroup()+"'");
 						break;
 					}
 				}
