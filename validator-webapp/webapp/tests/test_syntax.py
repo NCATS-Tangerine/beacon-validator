@@ -25,9 +25,11 @@ from webapp.client.swagger_client.apis.concepts_api import ConceptsApi
 from webapp.client.swagger_client.apis.statements_api import StatementsApi
 from webapp.client.swagger_client.apis.evidence_api import EvidenceApi
 
+SEED_QUERY = 'diabetes'  # a common biomedical concept
+
 def test_is_online(api_client):
     concepts_api = ConceptsApi(api_client)
-    concepts = concepts_api.get_concepts(keywords='e', page_size=1)
+    concepts = concepts_api.get_concepts(keywords=SEED_QUERY, page_size=1)
 
 def test_workflow(api_client):
     concepts_api = ConceptsApi(api_client)
@@ -35,7 +37,7 @@ def test_workflow(api_client):
     evidence_api = EvidenceApi(api_client)
 
     page_size = 5;
-    concepts = concepts_api.get_concepts(keywords='e', page_size=page_size)
+    concepts = concepts_api.get_concepts(keywords=SEED_QUERY, page_size=page_size)
 
     if len(concepts) is 0:
         fail('Test inconclusive, no concepts were found)')
@@ -75,10 +77,10 @@ def test_workflow(api_client):
 def test_concept_pagination(api_client):
     api = ConceptsApi(api_client)
 
-    concepts = api.get_concepts(keywords='e', page_number=1, page_size=45)
+    concepts = api.get_concepts(keywords=SEED_QUERY, page_number=1, page_size=45)
     size = int(len(concepts) / 2)
-    l1 = api.get_concepts(keywords='e', page_number=1, page_size=size)
-    l2 = api.get_concepts(keywords='e', page_number=2, page_size=size)
+    l1 = api.get_concepts(keywords=SEED_QUERY, page_number=1, page_size=size)
+    l2 = api.get_concepts(keywords=SEED_QUERY, page_number=2, page_size=size)
 
     for a, b in zip(l1 + l2, concepts[:2*size]):
         if a.id != b.id:
@@ -90,7 +92,7 @@ def test_concept_pagination(api_client):
 
 def test_statement_pagination(api_client):
     api = ConceptsApi(api_client)
-    concepts = api.get_concepts(keywords='e', page_number=1, page_size=5)
+    concepts = api.get_concepts(keywords=SEED_QUERY, page_number=1, page_size=5)
 
     api = StatementsApi(api_client)
 

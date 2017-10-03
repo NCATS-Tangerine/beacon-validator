@@ -201,8 +201,18 @@ public class Validator {
 		for (SemanticGroup semanticGroup : SemanticGroup.values()) {
 			List<Concept> concepts = (List<Concept>) (List) conceptsApi.getConcepts(keywords, semanticGroup.name(), pageNumber, pageSize);
 			logger.info("For Semantic Group '"+semanticGroup.name()+"' found '"+concepts.size()+"' statements?");
+			String currentGroup = semanticGroup.name().toLowerCase();
 			for (Concept concept : concepts) {
-				boolean isValid = concept.getSemanticGroup().toLowerCase().equals(semanticGroup.name().toLowerCase());
+				// need to allow for multiple Semantic Groups per concept
+				String[] semgroups = concept.getSemanticGroup().toLowerCase().split(" ");
+				boolean isValid = false;
+				if(semgroups.length>0)
+					for(String semtype : semgroups) {
+						if(semtype.equals(currentGroup)) {
+							isValid = true; 
+							break; 
+						}
+					}
 				if (! isValid) {
 					logError("Concept " + concept.getId() + " has semantic type " +
 							concept.getSemanticGroup() + " when we were searching for concepts of type " + semanticGroup.name());
