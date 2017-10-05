@@ -86,8 +86,8 @@ def test_concept_pagination(api_client):
     for i, a, b in zip(range(1,2*size+1),l1 + l2, concepts[:2*size]):
         if a.id != b.id:
             fail(
-                'Pagination failed. Element['+str(i)+'] of first page of', 2*size,
-                'items is not equal to the equivalent ordered entry in the combined first and second pages of',
+                'Pagination failed. Element['+str(i)+"] id '"+ a.id +"' of first page of", 2*size,
+                "items is not equal to the equivalent ordered entry id '"+ b.id +"'in the combined first and second pages of",
                 size, 'items.'
             )
 
