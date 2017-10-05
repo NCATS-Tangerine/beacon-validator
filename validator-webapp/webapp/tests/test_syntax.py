@@ -25,7 +25,7 @@ from webapp.client.swagger_client.apis.concepts_api import ConceptsApi
 from webapp.client.swagger_client.apis.statements_api import StatementsApi
 from webapp.client.swagger_client.apis.evidence_api import EvidenceApi
 
-SEED_QUERY = 'diabetes'  # a common biomedical concept
+SEED_QUERY = 'ab'  # a common biomedical concept
 
 def test_is_online(api_client):
     concepts_api = ConceptsApi(api_client)
@@ -75,6 +75,7 @@ def test_workflow(api_client):
         fail('Test inconclusive, no evidence was found)')
 
 def test_concept_pagination(api_client):
+    
     api = ConceptsApi(api_client)
 
     concepts = api.get_concepts(keywords=SEED_QUERY, page_number=1, page_size=15)
