@@ -78,16 +78,16 @@ def test_concept_pagination(api_client):
     
     api = ConceptsApi(api_client)
 
-    concepts = api.get_concepts(keywords=SEED_QUERY, page_number=1, page_size=15)
-    size = int(len(concepts) / 2)
+    concepts = api.get_concepts(keywords=SEED_QUERY, page_number=1, page_size=14)
+    size = int( len(concepts) / 2)
     l1 = api.get_concepts(keywords=SEED_QUERY, page_number=1, page_size=size)
     l2 = api.get_concepts(keywords=SEED_QUERY, page_number=2, page_size=size)
 
-    for i, a, b in zip(range(1,2*size+1),l1 + l2, concepts[:2*size]):
+    for i, a, b in zip( range(1,2*size+1), l1 + l2, concepts[:2*size] ):
         if a.id != b.id:
             fail(
-                'Pagination failed. Element['+str(i)+"] id '"+ a.id +"' of first page of", 2*size,
-                "items is not equal to the equivalent ordered entry id '"+ b.id +"'in the combined first and second pages of",
+                'Pagination failed. Element['+str(i)+"] id '"+ b.id +"' of first page of", 2*size,
+                "items is not equal to the equivalent ordered entry id '"+ a.id +"' in the combined first and second pages of",
                 size, 'items.'
             )
 
