@@ -45,10 +45,13 @@ def test_workflow(api_client):
     if len(concepts) > page_size:
         fail('Asked for a page size of',page_size,'got', len(concepts),'instead.')
 
-    details = concepts_api.get_concept_details(concepts[0].id)
+    for x in range(0, len(concepts)):
+        details = concepts_api.get_concept_details(concepts[0].id)
+        if not details is None and len(details) >= 1 :
+            break
 
     if details is None or len(details) < 1:
-        fail('Test inconclusive, no concept details were found')
+        fail('Test inconclusive since no concept details were found')
 
     page_size = 10
     statements = statements_api.get_statements(
@@ -78,12 +81,14 @@ def test_concept_pagination(api_client):
     
     api = ConceptsApi(api_client)
 
-    concepts = api.get_concepts(keywords=SEED_QUERY, page_number=1, page_size=14)
+    concepts = api.get_concepts(keywords=SEED_QUERY, page_number=1, page_size=15)
+    
     size = int( len(concepts) / 2)
+    
     l1 = api.get_concepts(keywords=SEED_QUERY, page_number=1, page_size=size)
     l2 = api.get_concepts(keywords=SEED_QUERY, page_number=2, page_size=size)
 
-    for i, a, b in zip( range(1,2*size+1), l1 + l2, concepts[:2*size] ):
+    for i, a, b in zip( range(1,2*size+1), l1 + l2, concepts[0:2*size] ):
         if a.id != b.id:
             fail(
                 'Pagination failed. Element['+str(i)+"] id '"+ b.id +"' of first page of", 2*size,
@@ -106,10 +111,10 @@ def test_statement_pagination(api_client):
     l1 = api.get_statements(c=[c.id for c in concepts], page_number=1, page_size=size)
     l2 = api.get_statements(c=[c.id for c in concepts], page_number=2, page_size=size)
 
-    for i, a, b in zip(range(1,2*size+1),l1 + l2, statements[:2*size]):
+    for i, a, b in zip(range(1,2*size+1), l1 + l2, statements[:2*size]):
         if a.id != b.id:
             fail(
-                'Pagination failed. Element['+str(i)+'] of first page of', 2*size,
-                'items is not equal to the equivalent ordered entry in the combined first and second pages of',
+                'Pagination failed. Element['+str(i)+"] id '"+ b.id +"' of first page of", 2*size,
+                "items is not equal to the equivalent ordered entry id '"+ a.id +"' in the combined first and second pages of",
                 size, 'items.'
             )
