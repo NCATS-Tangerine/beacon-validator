@@ -1,0 +1,29 @@
+allprojects {
+  apply plugin: 'java'
+  group = 'bio.knowledge'
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+
+}
+
+project(':validator') {
+    evaluationDependsOn(':client')
+    
+    dependencies {
+    	compile project(':client')
+    }
+    
+    jar {
+        manifest {
+            attributes 'Implementation-Title': 'Knowledge Beacon Validator',
+                       'Built-By' : 'Lance Hannestad, github.com/lhannest',
+                       'Main-Class': 'bio.knowledge.validator.Application'
+        }
+    }
+}

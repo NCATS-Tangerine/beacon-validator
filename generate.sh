@@ -1,4 +1,5 @@
 #!/bin/sh
+
 # This script downloads swagger-codegen-cli.jar into a hidden directory and then uses it to generate a Java project stub
 # https://github.com/swagger-api/swagger-codegen
 
