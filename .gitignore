@@ -1,3 +1,28 @@
+*.class
+/.gradle/
+
+**/.settings/**
+.project
+
+/validator/bin/test
+/validator/log
+/.settings/
+.project
+/client/bin
+
+**/application.properties
+
+.codegen/
+**/bin/
+**/log/
+*~
+
+
+
+
+
+
+
 # Compiled class file
 *.class
 
