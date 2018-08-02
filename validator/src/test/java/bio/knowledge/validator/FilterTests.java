@@ -71,6 +71,11 @@ public class FilterTests {
 				for (BeaconConcept concept : concepts) {
 					assertTrue(apiClient, "Types filter failed for " + concept.getId(), !Collections.disjoint(types, concept.getCategories()));
 					
+					for (String keyword : keywords) {
+						@SuppressWarnings("unused")
+						String key = keyword;
+					}
+					
 					Boolean name = keywords.stream().anyMatch(keyword -> contains(keyword, concept.getName()));
 					Boolean definition = keywords.stream().anyMatch(keyword -> contains(keyword, concept.getDescription()));
 //					Boolean synonyms = keywords.stream().anyMatch(keyword -> concept.getSynonyms().stream().anyMatch(synonym -> contains(keyword, synonym)));
@@ -172,11 +177,12 @@ public class FilterTests {
 			return false;
 		}
 		
-		if (substring.contains(" ")) {
-			String[] substrings = substring.split(" ");
+		if (superstring.contains(",")) {
+			String[] superstrings = superstring.split(",");
 			
-			for (String s : substrings) {
-				if (contains(superstring, s)) return true;
+			for (String s : superstrings) {
+				s = s.trim();
+				if (s.contains(substring) || superstring.contains(s)) return true;
 			}
 			
 			return false;
