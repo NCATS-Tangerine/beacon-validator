@@ -3,6 +3,7 @@ package bio.knowledge.validator.rules;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -35,6 +36,8 @@ public class RuleContainer {
 	
 	private Map<String, Double> time_sec = new HashMap<String, Double>();
 	
+	private Map<String, Double> unit_map = new TreeMap<String, Double>();
+	
 	@PostConstruct
 	private void init() {
 		testWatcher = new TestWatcher() {
@@ -57,10 +60,14 @@ public class RuleContainer {
 		stopwatch = new Stopwatch() {
 			@Override
 			protected void finished(long nanos, Description description) {
-				time_sec.put(description.getMethodName(), (double) nanos / 1e+9);
+				time_sec.put(description.getMethodName(), (double) nanos);
 			}
 		};
 		
+		unit_map.put("hrs", 3.6e+12);
+		unit_map.put("min", 6e+10);
+		unit_map.put("sec", 1e+9);
+		unit_map.put("ms", 1000000d);		
 	}
 	
 	@PreDestroy
@@ -71,24 +78,18 @@ public class RuleContainer {
 		
 		int i = 0;
 		for (String method : time_sec.keySet()) {
-			logger.info("Time for " + method + ": " + round(time_sec.get(method)) + " sec");
-			values[i++] = time_sec.get(method);
+			double time = time_sec.get(method);
+			logger.info("Time for " + method + ": " + formatTime(time));
+			values[i++] = time;
 		}
 		
 		double geometricMean = round(StatUtils.geometricMean(values));
 		double mean = round(StatUtils.mean(values));
 		double sum = round(StatUtils.sum(values));
 		
-		logger.info("Gemoetric mean: " + geometricMean + " sec");
-		logger.info("Arithmetic mean: " + mean + " sec");
-		logger.info("Sum: " + sum + " sec");		
-	}
-	
-	/**
-	 * Rounds to three decimal places
-	 */
-	private double round(double d) {
-		return Math.round(d * 1000) / 1000d;
+		logger.info("Gemoetric mean: " + formatTime(geometricMean));
+		logger.info("Arithmetic mean: " + formatTime(mean));
+		logger.info("Sum: " + formatTime(sum));
 	}
 	
 	public TestWatcher getTestWatcher() {
@@ -97,6 +98,27 @@ public class RuleContainer {
 	
 	public Stopwatch getStopwatch() {
 		return this.stopwatch;
+	}
+	
+	/**
+	 * Rounds to three decimal places
+	 */
+	private double round(double d) {
+		return Math.round(d * 1000) / 1000d;
+	}
+
+	private String formatTime(double ns) {
+		
+		for (String unit : unit_map.keySet()) {
+			double conversion = unit_map.get(unit);
+			double time = ns / conversion;
+			
+			if (time >= 1) {
+				return String.valueOf(round(time)) + " " + unit;
+			}
+		}
+		
+		return String.valueOf(round(ns)) + " ns";
 	}
 
 }
