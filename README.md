@@ -16,7 +16,7 @@ gradle test
 By default it will use the URI set with `basePath` in `validator/src/main/resources/application.properties`. Alternatively, and much easier, you can set it when running gradle like this:
 
 ```shell
-basePath="https://biolink-kb.ncats.io" gradle test
+basePath="https://kba.ncats.io/beacon/rhea/" gradle test
 ```
 
 This will overwrite the `basePath` property in application.properties.
