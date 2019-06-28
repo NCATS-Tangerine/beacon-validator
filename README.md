@@ -6,7 +6,7 @@ Use gradle 4 to build.
 
 # Testing in command line
 
-The easiest way to run these tests is with gradle in the command line:
+The easiest way to run these tests is with gradle (release 4.\*) in the command line:
 
 ```
 gradle4 test
