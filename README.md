@@ -15,6 +15,6 @@ gradle test
 By default it will use the URI set with `basePath` in `validator/src/main/resources/application.properties`. Alternatively, and much easier, you can set it when running gradle like this:
 
 ```shell
-basePath="https://kba.ncats.io/beacon/rhea/" gradle4 test
+basePath="https://kba.ncats.io/beacon/rhea/" gradle test
 ```
 After finishing, results will be saved to `validator/log/{host}/` directory. There will be a separate file for each failing test, detailing the problem and providing the URI that caused the test to fail. There will also be `validator/log/{host}/application.log` which will contain timing statistics.

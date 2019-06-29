@@ -17,6 +17,10 @@
 **/log/
 *~
 
+# IntelliJ IDEA metadata ignored
+.idea/
+
+
 
 
 
