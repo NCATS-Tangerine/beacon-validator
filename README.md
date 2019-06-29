@@ -16,7 +16,7 @@ By default it will use the URI set with the `basePath` property in `validator/sr
 
 ```shell
 # Here, we assume a *nix system; adjust as per your OS
-export basePath="https://kba.ncats.io/beacon/rhea/" 
+export basePath=https://kba.ncats.io/beacon/rhea/ 
 gradle test
 ```
 After finishing, results will be saved to `validator/log/{host}/` directory. There will be a separate file for each failing test, detailing the problem and providing the URI that caused the test to fail. There will also be `validator/log/{host}/application.log` which will contain timing statistics.
