@@ -12,7 +12,7 @@ The easiest way to run these tests is with gradle (currently, release 4.\* of Gr
 gradle test
 ```
 
-By default it will use the URI set with `basePath` in `validator/src/main/resources/application.properties`. Alternatively, and much easier, you can set it when running gradle like this:
+By default it will use the URI set with the `basePath` property in `validator/src/main/resources/application.properties`. You should set this value before running the test. Alternatively, you can set it when running gradle like this:
 
 ```shell
 basePath="https://kba.ncats.io/beacon/rhea/" gradle test
