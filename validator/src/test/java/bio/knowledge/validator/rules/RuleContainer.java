@@ -1,26 +1,23 @@
 package bio.knowledge.validator.rules;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-
+import bio.knowledge.validator.ApiClient;
 import bio.knowledge.validator.BasePathAccessor;
+import bio.knowledge.validator.BeaconExceptionInterface;
+import bio.knowledge.validator.logging.Logger;
+import bio.knowledge.validator.logging.LoggerFactory;
 import org.apache.commons.math3.stat.StatUtils;
 import org.junit.rules.Stopwatch;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import bio.knowledge.validator.ApiClient;
-import bio.knowledge.validator.BeaconExceptionInterface;
-import bio.knowledge.validator.logging.Logger;
-import bio.knowledge.validator.logging.LoggerFactory;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 @Component
 public class RuleContainer  extends BasePathAccessor {

@@ -1,36 +1,28 @@
 package bio.knowledge.validator;
 
-import static bio.knowledge.validator.Assert.assertFalse;
-import static bio.knowledge.validator.Assert.assertTrue;
-
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
-import javax.annotation.PostConstruct;
-
+import bio.knowledge.client.ApiException;
+import bio.knowledge.client.api.ConceptsApi;
+import bio.knowledge.client.api.StatementsApi;
+import bio.knowledge.client.model.*;
+import bio.knowledge.validator.logging.Logger;
+import bio.knowledge.validator.logging.LoggerFactory;
+import bio.knowledge.validator.rules.RuleContainer;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.Stopwatch;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import bio.knowledge.client.ApiException;
-import bio.knowledge.client.api.ConceptsApi;
-import bio.knowledge.client.api.StatementsApi;
-import bio.knowledge.client.model.BeaconConcept;
-import bio.knowledge.client.model.BeaconConceptWithDetails;
-import bio.knowledge.client.model.BeaconStatement;
-import bio.knowledge.client.model.BeaconStatementObject;
-import bio.knowledge.client.model.BeaconStatementSubject;
-import bio.knowledge.client.model.ExactMatchResponse;
-import bio.knowledge.validator.logging.Logger;
-import bio.knowledge.validator.logging.LoggerFactory;
-import bio.knowledge.validator.rules.RuleContainer;
+import javax.annotation.PostConstruct;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+import static bio.knowledge.validator.Assert.assertFalse;
+import static bio.knowledge.validator.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

@@ -1,12 +1,11 @@
 package bio.knowledge.validator.logging;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.stereotype.Component;
-
 import bio.knowledge.validator.ApiClient;
 import bio.knowledge.validator.Utils;
+import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class LoggerFactory {

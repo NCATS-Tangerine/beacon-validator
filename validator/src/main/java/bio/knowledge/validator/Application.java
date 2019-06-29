@@ -1,11 +1,11 @@
 package bio.knowledge.validator;
 
-import java.util.Properties;
-
 import org.junit.runner.Computer;
 import org.junit.runner.JUnitCore;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.Properties;
 
 @SpringBootApplication
 public class Application {

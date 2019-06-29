@@ -1,26 +1,6 @@
 package bio.knowledge.validator;
 
 
-import static bio.knowledge.validator.Assert.assertTrue;
-import static bio.knowledge.validator.Assert.fail;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.annotation.PostConstruct;
-
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.Stopwatch;
-import org.junit.rules.TestWatcher;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-
 import bio.knowledge.client.ApiException;
 import bio.knowledge.client.api.ConceptsApi;
 import bio.knowledge.client.api.StatementsApi;
@@ -32,6 +12,23 @@ import bio.knowledge.validator.containers.FilterSetContainer;
 import bio.knowledge.validator.containers.FilterSetContainer.FilterSet;
 import bio.knowledge.validator.containers.MetadataContainer;
 import bio.knowledge.validator.rules.RuleContainer;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.Stopwatch;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static bio.knowledge.validator.Assert.assertTrue;
+import static bio.knowledge.validator.Assert.fail;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

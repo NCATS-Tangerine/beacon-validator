@@ -1,23 +1,21 @@
 package bio.knowledge.validator;
 
-import static bio.knowledge.validator.Assert.fail;
-
-import javax.annotation.PostConstruct;
-
+import bio.knowledge.client.ApiException;
+import bio.knowledge.client.api.ConceptsApi;
+import bio.knowledge.client.api.StatementsApi;
+import bio.knowledge.validator.rules.RuleContainer;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.Stopwatch;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import bio.knowledge.client.ApiException;
-import bio.knowledge.client.api.ConceptsApi;
-import bio.knowledge.client.api.StatementsApi;
-import bio.knowledge.validator.rules.RuleContainer;
+import javax.annotation.PostConstruct;
+
+import static bio.knowledge.validator.Assert.fail;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

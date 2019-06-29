@@ -1,18 +1,16 @@
 package bio.knowledge.validator.containers;
 
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-
 import bio.knowledge.client.ApiException;
 import bio.knowledge.client.api.MetadataApi;
 import bio.knowledge.client.model.BeaconConceptCategory;
 import bio.knowledge.client.model.BeaconKnowledgeMapStatement;
 import bio.knowledge.client.model.BeaconPredicate;
 import bio.knowledge.validator.ApiClient;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
+import java.util.List;
 
 @Component
 public class MetadataContainer {

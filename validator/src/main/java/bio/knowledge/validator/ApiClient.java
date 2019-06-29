@@ -1,20 +1,16 @@
 package bio.knowledge.validator;
 
-import java.io.IOException;
+import bio.knowledge.client.ApiException;
+import bio.knowledge.client.ApiResponse;
+import bio.knowledge.client.Pair;
+import com.squareup.okhttp.Call;
+
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.Response;
-
-import bio.knowledge.client.ApiException;
-import bio.knowledge.client.ApiResponse;
-import bio.knowledge.client.Pair;
 
 public class ApiClient extends bio.knowledge.client.ApiClient {
 	

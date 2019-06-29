@@ -1,7 +1,5 @@
 package bio.knowledge.validator.logging;
 
-import java.util.List;
-
 import bio.knowledge.validator.ApiClient;
 import bio.knowledge.validator.BeaconException;
 import bio.knowledge.validator.Utils;
@@ -10,6 +8,8 @@ import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.FileAppender;
 import ch.qos.logback.core.util.StatusPrinter;
+
+import java.util.List;
 
 /**
  * Wraps a customized instance of {@link ch.qos.logback.classic.Logger}.
