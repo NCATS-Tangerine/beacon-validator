@@ -24,11 +24,8 @@ import bio.knowledge.validator.rules.RuleContainer;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class CacheTests {
-	
-	@Value("${basePath}")
-	private String BASE_PATH;
-	
+public class CacheTests  extends BasePathAccessor {
+
 	@Autowired RuleContainer ruleContainer;
 	
 	@Rule public TestWatcher testWatcher;
@@ -42,7 +39,7 @@ public class CacheTests {
 	
 	@Test
 	public void testExactMatchesCaching() throws ApiException {
-		ApiClient client = new ApiClient(BASE_PATH);
+		ApiClient client = new ApiClient(getBasePath());
 		ConceptsApi conceptsApi = new ConceptsApi(client);
 		
 		List<BeaconConcept> concepts = conceptsApi.getConcepts(Utils.asList("diabetes"), null, 100);

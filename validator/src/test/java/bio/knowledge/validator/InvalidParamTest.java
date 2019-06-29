@@ -21,11 +21,8 @@ import bio.knowledge.validator.rules.RuleContainer;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class InvalidParamTest {
-	
-	@Value(value="${basePath}")
-	public String BASE_PATH;
-	
+public class InvalidParamTest extends BasePathAccessor {
+
 	@Autowired RuleContainer ruleContainer;
 	
 	@Rule public TestWatcher testWatcher;
@@ -39,7 +36,7 @@ public class InvalidParamTest {
 	
 	@Test
 	public void testInvalidParams() {
-		ApiClient apiClient = new ApiClient(BASE_PATH);
+		ApiClient apiClient = new ApiClient(getBasePath());
 		ConceptsApi conceptsApi = new ConceptsApi(apiClient);
 		StatementsApi statementsApi = new StatementsApi(apiClient);
 		

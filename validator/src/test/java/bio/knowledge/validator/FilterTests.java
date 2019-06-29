@@ -35,10 +35,8 @@ import bio.knowledge.validator.rules.RuleContainer;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class FilterTests {
-	@Value(value="${basePath}")
-	public String BASE_PATH;
-	
+public class FilterTests  extends BasePathAccessor {
+
 	@Autowired FilterSetContainer filterSetContainer;
 	@Autowired MetadataContainer metadataContainer;
 	@Autowired RuleContainer ruleContainer;
@@ -56,7 +54,7 @@ public class FilterTests {
 	
 	@Test
 	public void testConceptFilters() throws ApiException {
-		ApiClient apiClient = new ApiClient(BASE_PATH);
+		ApiClient apiClient = new ApiClient(getBasePath());
 		ConceptsApi conceptsApi = new ConceptsApi(apiClient);
 		
 		FilterSet filterSet = filterSetContainer.getFilterSet();
@@ -99,7 +97,7 @@ public class FilterTests {
 		List<List<String>> typesList = filterSet.getTypesList();
 		List<List<String>> keywordsList = filterSet.getKeywordsList();
 		
-		ApiClient apiClient = new ApiClient(BASE_PATH);
+		ApiClient apiClient = new ApiClient(getBasePath());
 		StatementsApi statementsApi = new StatementsApi(apiClient);
 		ConceptsApi conceptsApi = new ConceptsApi(apiClient);
 		

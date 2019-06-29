@@ -34,11 +34,8 @@ import bio.knowledge.validator.rules.RuleContainer;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class WorkflowTests {
-	
-	@Value(value="${basePath}")
-	public String BASE_PATH;
-	
+public class WorkflowTests extends BasePathAccessor {
+
 	@Autowired RuleContainer ruleContainer;
 	@Autowired LoggerFactory loggerFactory;
 	
@@ -59,7 +56,7 @@ public class WorkflowTests {
 	
 	@Test
 	public void testConcepts() throws ApiException {		
-		ApiClient apiClient = new ApiClient(BASE_PATH);
+		ApiClient apiClient = new ApiClient(getBasePath());
 		ConceptsApi conceptsApi = new ConceptsApi(apiClient);
 		
 		List<BeaconConcept> concepts = conceptsApi.getConcepts(CONCEPTS_KEYWORDS, CONCEPTS_TYPES, CONCEPTS_PAGE_SIZE);
@@ -100,9 +97,9 @@ public class WorkflowTests {
 	
 	@Test
 	public void testConceptDetails() throws ApiException {
-		Logger logger = loggerFactory.get(BASE_PATH);
+		Logger logger = loggerFactory.get(getBasePath());
 		
-		ApiClient apiClient = new ApiClient(BASE_PATH);
+		ApiClient apiClient = new ApiClient(getBasePath());
 		ConceptsApi conceptsApi = new ConceptsApi(apiClient);
 		
 		List<BeaconConcept> concepts = conceptsApi.getConcepts(CONCEPTS_KEYWORDS, CONCEPTS_TYPES, CONCEPTS_PAGE_SIZE);
@@ -147,7 +144,7 @@ public class WorkflowTests {
 	
 	@Test
 	public void testStatements() throws ApiException {
-		ApiClient apiClient = new ApiClient(BASE_PATH);
+		ApiClient apiClient = new ApiClient(getBasePath());
 		ConceptsApi conceptsApi = new ConceptsApi(apiClient);
 		StatementsApi statementsApi = new StatementsApi(apiClient);
 		
@@ -193,7 +190,7 @@ public class WorkflowTests {
 	
 	@Test
 	public void testExactMatches() throws ApiException {
-		ApiClient apiClient = new ApiClient(BASE_PATH);
+		ApiClient apiClient = new ApiClient(getBasePath());
 		ConceptsApi conceptsApi = new ConceptsApi(apiClient);
 		
 		List<BeaconConcept> concepts = conceptsApi.getConcepts(CONCEPTS_KEYWORDS, CONCEPTS_TYPES, EXACT_MATCH_PAGE_SIZE);

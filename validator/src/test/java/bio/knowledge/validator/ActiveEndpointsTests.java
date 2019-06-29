@@ -27,10 +27,7 @@ import bio.knowledge.validator.rules.RuleContainer;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ActiveEndpointsTests {
-
-	@Value(value = "${basePath}")
-	public String BASE_PATH;
+public class ActiveEndpointsTests extends BasePathAccessor {
 
 	@Autowired
 	RuleContainer ruleContainer;
@@ -48,14 +45,14 @@ public class ActiveEndpointsTests {
 
 	@Test
 	public void testConceptsCall() throws ApiException {
-		ApiClient apiClient = new ApiClient(BASE_PATH);
+		ApiClient apiClient = new ApiClient(getBasePath());
 		ConceptsApi conceptsApi = new ConceptsApi(apiClient);
 		conceptsApi.getConcepts(Utils.asList("e"), null, 1);
 	}
 
 	@Test
 	public void testConceptDetailsCall() throws ApiException {
-		ApiClient apiClient = new ApiClient(BASE_PATH);
+		ApiClient apiClient = new ApiClient(getBasePath());
 		ConceptsApi conceptsApi = new ConceptsApi(apiClient);
 		List<BeaconConcept> concepts = conceptsApi.getConcepts(Utils.asList("e"), null, 1);
 
@@ -70,7 +67,7 @@ public class ActiveEndpointsTests {
 
 	@Test
 	public void testExactMatchesToConceptIdCall() throws ApiException {
-		ApiClient apiClient = new ApiClient(BASE_PATH);
+		ApiClient apiClient = new ApiClient(getBasePath());
 		ConceptsApi conceptsApi = new ConceptsApi(apiClient);
 
 		List<BeaconConcept> concepts = conceptsApi.getConcepts(Utils.asList("e"), null, 1);
@@ -86,7 +83,7 @@ public class ActiveEndpointsTests {
 
 	@Test
 	public void testExactMatchesToConceptListCall() throws ApiException {
-		ApiClient apiClient = new ApiClient(BASE_PATH);
+		ApiClient apiClient = new ApiClient(getBasePath());
 		ConceptsApi conceptsApi = new ConceptsApi(apiClient);
 		List<BeaconConcept> concepts = conceptsApi.getConcepts(Utils.asList("e"), null, 1);
 
@@ -101,7 +98,7 @@ public class ActiveEndpointsTests {
 
 	@Test
 	public void testStatementsCall() throws ApiException {
-		ApiClient apiClient = new ApiClient(BASE_PATH);
+		ApiClient apiClient = new ApiClient(getBasePath());
 		ConceptsApi conceptsApi = new ConceptsApi(apiClient);
 		StatementsApi statementsApi = new StatementsApi(apiClient);
 		List<BeaconConcept> concepts = conceptsApi.getConcepts(Utils.asList("e"), null, 1);
@@ -117,7 +114,7 @@ public class ActiveEndpointsTests {
 
 	@Test
 	public void testStatementDetails() throws ApiException {
-		ApiClient apiClient = new ApiClient(BASE_PATH);
+		ApiClient apiClient = new ApiClient(getBasePath());
 		ConceptsApi conceptsApi = new ConceptsApi(apiClient);
 		StatementsApi statementsApi = new StatementsApi(apiClient);
 		List<BeaconConcept> concepts = conceptsApi.getConcepts(Utils.asList("e"), null, 50);
@@ -145,21 +142,21 @@ public class ActiveEndpointsTests {
 
 	@Test
 	public void testKmapCall() throws ApiException {
-		ApiClient apiClient = new ApiClient(BASE_PATH);
+		ApiClient apiClient = new ApiClient(getBasePath());
 		MetadataApi metadataApi = new MetadataApi(apiClient);
 		metadataApi.getKnowledgeMap();
 	}
 
 	@Test
 	public void testTypesCall() throws ApiException {
-		ApiClient apiClient = new ApiClient(BASE_PATH);
+		ApiClient apiClient = new ApiClient(getBasePath());
 		MetadataApi metadataApi = new MetadataApi(apiClient);
 		metadataApi.getConceptCategories();
 	}
 
 	@Test
 	public void testPredicatesCall() throws ApiException {
-		ApiClient apiClient = new ApiClient(BASE_PATH);
+		ApiClient apiClient = new ApiClient(getBasePath());
 		MetadataApi metadataApi = new MetadataApi(apiClient);
 		metadataApi.getPredicates();
 	}

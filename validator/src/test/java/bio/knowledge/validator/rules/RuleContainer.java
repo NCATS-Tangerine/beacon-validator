@@ -8,6 +8,7 @@ import java.util.TreeMap;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
+import bio.knowledge.validator.BasePathAccessor;
 import org.apache.commons.math3.stat.StatUtils;
 import org.junit.rules.Stopwatch;
 import org.junit.rules.TestWatcher;
@@ -17,17 +18,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import bio.knowledge.validator.ApiClient;
-import bio.knowledge.validator.BeaconException;
 import bio.knowledge.validator.BeaconExceptionInterface;
 import bio.knowledge.validator.logging.Logger;
 import bio.knowledge.validator.logging.LoggerFactory;
 
 @Component
-public class RuleContainer {
-	
-	@Value("${basePath}")
-	private String BASE_PATH;
-	
+public class RuleContainer  extends BasePathAccessor {
+
 	@Autowired LoggerFactory loggerFactory;
 	
 	private TestWatcher testWatcher;
@@ -51,7 +48,7 @@ public class RuleContainer {
 					
 					logger.error(e, description.getMethodName(), apiClient.getQueryHistory());
 				} else {
-					Logger logger = loggerFactory.get(BASE_PATH);
+					Logger logger = loggerFactory.get(getBasePath());
 					logger.error(e, description.getMethodName(), new ArrayList<String>());
 				}
 		    }
@@ -74,7 +71,7 @@ public class RuleContainer {
 	public void finish() {
 		double[] values = new double[time_sec.size()];
 		
-		Logger logger = loggerFactory.get(BASE_PATH);
+		Logger logger = loggerFactory.get(getBasePath());
 		
 		int i = 0;
 		for (String method : time_sec.keySet()) {
