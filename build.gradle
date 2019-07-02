@@ -1,6 +1,11 @@
 allprojects {
-  apply plugin: 'java'
-  group = 'bio.knowledge'
+
+    apply plugin: 'java'
+
+    reporting.baseDir="reports/${beacon_test_dir}"
+    testResultsDirName="test-results/${beacon_test_dir}"
+    
+    group = 'bio.knowledge'
 }
 
 repositories {
@@ -25,5 +30,12 @@ project(':validator') {
                        'Built-By' : 'Lance Hannestad, github.com/lhannest',
                        'Main-Class': 'bio.knowledge.validator.Application'
         }
+    }
+}
+
+task showDirs {
+    doLast {
+        logger.quiet(rootDir.toPath().relativize(project.reportsDir.toPath()).toString())
+        logger.quiet(rootDir.toPath().relativize(project.testResultsDir.toPath()).toString())
     }
 }

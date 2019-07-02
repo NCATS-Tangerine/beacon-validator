@@ -1,5 +1,6 @@
 *.class
 /.gradle/
+gradle.properties
 
 **/.settings/**
 .project
@@ -19,13 +20,6 @@
 
 # IntelliJ IDEA metadata ignored
 .idea/
-
-
-
-
-
-
-
 
 # Compiled class file
 *.class
