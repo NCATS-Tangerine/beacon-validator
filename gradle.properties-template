@@ -1,3 +1,0 @@
-# This should be copied into 'gradle.properties' and modified for each test
-# These values may be overridden on the CLI using the gradle -P switch
-beacon_test_dir=biolink
