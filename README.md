@@ -22,7 +22,7 @@ Tests for the beacon aggregator can be run like this:
 
 #### Configuring tests
 
-The beacon and aggregator URI's used in the test are set in `validator-project/validator/src/main/resources/application.properties`. Each branch should have these values set up. Since Jenkins doesn't run any tests in the master branch, these properties can be changed at whim in the master branch without effecting the behavior of Jenkins.
+The beacon and aggregator URI's used in the test are set in a `validator-project/validator/src/main/resources/application.properties` file, created by copying and customizing the available `application.properties-template` file. Each beacon test branch should have their configuration values set up. Since Jenkins doesn't run any tests in the master branch, these properties can be changed at whim in the master branch without effecting the behavior of Jenkins.
 
 ### Running Jenkins in Docker:
 
